@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="./script.js"></script>
+  </head>
+  <body onload="showAllTodo()">
+    <div class="hero">
+      <div class="heading">
+        <h1>ToDo <span>App</span></h1>
+      </div>
+      <div class="hero-form">
+        <div class="form">
+          <div class="input-field">
+            <label for="text">Title</label>
+            <input
+              type="text"
+              placeholder="Enter Your Title"
+              id="title-field"
+            />
+          </div>
+          <div class="input-field">
+            <label for="text">Description</label>
+            <input
+              type="text"
+              placeholder="Write some description"
+              id="desc-field"
+            />
+          </div>
+          <div class="action-btn heading">
+            <!-- <button onclick="showAllTodo()">Show All</button> -->
+            <button onclick="addToDo()">ADD</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="outputData"></div>
+  </body>
+</html>

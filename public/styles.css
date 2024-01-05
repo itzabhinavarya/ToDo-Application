@@ -1,0 +1,85 @@
+::-webkit-scrollbar {
+  display: none;
+}
+body {
+  font-family: "poppins";
+}
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heading span {
+  color: chartreuse;
+}
+
+.hero-form {
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 16px;
+}
+
+.input-field label {
+  font-weight: 500;
+  padding: 5px 0;
+}
+
+.input-field input {
+  width: 300px;
+  padding: 10px 5px;
+  font-size: 15px;
+  font-family: "poppins";
+}
+.input-field input::placeholder {
+  font-family: "poppins";
+  font-size: 15px;
+}
+
+.action-btn {
+  /* background-color: aquamarine; */
+  padding: 1rem;
+  display: flex;
+  gap: 10px;
+}
+.action-btn button {
+  width: 100%;
+  padding: 10px;
+  background: chartreuse;
+  font-family: "poppins";
+  border: none;
+  cursor: pointer;
+}
+
+.outputData {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+}
+
+.output {
+  background-color: chartreuse;
+  padding: 0 10px;
+  height: 160px;
+}
+
+.output p:nth-child(1) {
+  font-weight: 600;
+  max-height: 400px !important;
+} 
+
+#deleteBtn {
+  display: flex;
+  padding: 5px 15px;
+  font-family: "poppins";
+  background-color: cornsilk;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  /* margin-bottom: 20px; */
+}
