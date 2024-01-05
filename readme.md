@@ -18,11 +18,11 @@ If you are a beginner/fresher and you haven;t developed any project till now the
 ### Steps to run this project locally
 1. Fork this repo/Download zip. (Make sure to give a star 🌟 to this Repo.)
 2. Open the repo inside your fav. code editor.
-3. Run command (to install dependencies of the project)
-   ```npm install```
-4. After complete execution of the previous Command then execute this command
-   ```npm start```
+3. Run command (to install dependencies of the project) <br>
+   ```npm install``` <br>
+4. After complete execution of the previous Command then execute this command <br>
+   ```npm start``` <br>
 5. And all set. Head over to **http://localhost:3000**
 
-Follow me on Github for more exciting free projects
+Follow me on Github for more exciting free projects. <br>
 Happy coding! 🌟
