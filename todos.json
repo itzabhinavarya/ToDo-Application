@@ -7,5 +7,32 @@
     "completed": false,
     "createdAt": "2025-07-27T18:35:38.237Z",
     "updatedAt": "2025-07-27T18:35:38.238Z"
+  },
+  {
+    "id": 2,
+    "userId": 3,
+    "title": "Welcome to your To-Do List!",
+    "description": "This is your first todo. You can edit or delete it.",
+    "completed": false,
+    "createdAt": "2025-07-27T18:41:48.337Z",
+    "updatedAt": "2025-07-27T18:41:48.337Z"
+  },
+  {
+    "id": 3,
+    "userId": 3,
+    "title": "Goto Gym",
+    "description": "I have to go-to gym at 8:00 PM",
+    "completed": false,
+    "createdAt": "2025-07-27T18:42:59.589Z",
+    "updatedAt": "2025-07-27T18:42:59.590Z"
+  },
+  {
+    "id": 4,
+    "userId": 3,
+    "title": "Have to work on project",
+    "description": "Pro To-Do Application",
+    "completed": false,
+    "createdAt": "2025-07-27T18:43:26.456Z",
+    "updatedAt": "2025-07-27T18:43:26.457Z"
   }
 ]
