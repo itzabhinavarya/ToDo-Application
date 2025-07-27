@@ -1,1 +1,29 @@
-[{"id":4,"title":"gym","completed":false,"description":"go to gym at 7"},{"id":6,"title":"Coffee","completed":false,"description":"Have to drink coffee"},{"id":7,"title":"Github","completed":false,"description":"github.com/itzabhinavarya"},{"id":8,"title":"twitter","completed":false,"description":"twitter.com/itzabhinavarya"},{"id":9,"title":"My Portfolio","completed":false,"description":"itzabhinavarya.netlify.app"}]
+[
+  {
+    "id": 3,
+    "userId": 2,
+    "title": "Welcome to your To-Do List!",
+    "description": "This is your first todo. You can edit or delete it.",
+    "completed": false,
+    "createdAt": "2025-07-27T17:20:07.531Z",
+    "updatedAt": "2025-07-27T17:20:07.531Z"
+  },
+  {
+    "id": 5,
+    "userId": 1,
+    "title": "adfasdf000",
+    "description": "adfssss0000",
+    "completed": false,
+    "createdAt": "2025-07-27T17:32:03.995Z",
+    "updatedAt": "2025-07-27T17:34:20.001Z"
+  },
+  {
+    "id": 6,
+    "userId": 1,
+    "title": "afasd",
+    "description": "fasdfa",
+    "completed": false,
+    "createdAt": "2025-07-27T17:34:03.337Z",
+    "updatedAt": "2025-07-27T17:34:03.337Z"
+  }
+]

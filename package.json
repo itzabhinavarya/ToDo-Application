@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "nodemon todoServer.js"
+    "start": "nodemon todoServer.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
     "supertest": "^6.3.3"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "uuid": "^9.0.0"
   }

@@ -1,44 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To-Do App</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="./script.js"></script>
-  </head>
-  <body onload="showAllTodo()">
-    <div class="hero">
-      <div class="heading">
-        <h1>ToDo <span>App</span></h1>
-      </div>
-      <div class="hero-form">
-        <div class="form">
-          <div class="input-field">
-            <label for="text">Title</label>
-            <input
-              type="text"
-              placeholder="Enter Your Title"
-              id="title-field"
-            />
-          </div>
-          <div class="input-field">
-            <label for="text">Description</label>
-            <input
-              type="text"
-              placeholder="Write some description"
-              id="desc-field"
-            />
-          </div>
-          <div class="action-btn heading">
-            <!-- <button onclick="showAllTodo()">Show All</button> -->
-            <button onclick="addToDo()">ADD</button>
-          </div>
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pro To-Do App</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="./script.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-left">
+      <span class="material-icons app-logo">check_circle</span>
+      <span class="app-title">Pro To-Do</span>
     </div>
-    <div class="outputData"></div>
-  </body>
+    <div class="header-right">
+      <span id="user-info" class="user-info"></span>
+      <button id="login-btn" class="icon-btn" style="display:none;">Login</button>
+      <button id="register-btn" class="icon-btn" style="display:none;">Register</button>
+      <button id="logout-btn" class="icon-btn" title="Logout" style="display:none;"><span class="material-icons">logout</span></button>
+    </div>
+  </header>
+  <main class="main-content">
+    <section class="todo-controls">
+      <input type="text" id="search-input" placeholder="Search todos..." />
+      <select id="filter-select">
+        <option value="all">All</option>
+        <option value="active">Active</option>
+        <option value="completed">Completed</option>
+      </select>
+      <select id="sort-select">
+        <option value="createdAt">Sort by Created</option>
+        <option value="updatedAt">Sort by Updated</option>
+        <option value="title">Sort by Title</option>
+      </select>
+      <button id="clear-filters-btn" class="icon-btn" title="Clear Filters"><span class="material-icons">filter_alt_off</span></button>
+    </section>
+    <section class="todo-board">
+      <div class="outputData"></div>
+    </section>
+    <button id="add-todo-btn" class="fab" title="Add Todo"><span class="material-icons">add</span></button>
+  </main>
+
+  <!-- Create/Update Modal -->
+  <div id="edit-modal" class="modal" aria-hidden="true">
+    <div class="modal-overlay"></div>
+    <div class="modal-content glass">
+      <span class="close material-icons" id="close-modal">close</span>
+      <h2 id="modal-title">Add To-Do</h2>
+      <form id="todo-form">
+        <div class="input-field">
+          <input type="text" id="edit-title" placeholder=" " required />
+          <label for="edit-title">Title</label>
+        </div>
+        <div class="input-field">
+          <textarea id="edit-desc" placeholder=" " required rows="3"></textarea>
+          <label for="edit-desc">Description</label>
+        </div>
+        <div class="input-field" id="completed-checkbox-field" style="display:none;">
+          <label for="edit-completed">Completed</label>
+          <span class="toggle-switch">
+            <input type="checkbox" id="edit-completed" />
+            <span class="toggle-slider"></span>
+          </span>
+        </div>
+        <div class="action-btn">
+          <button id="save-edit-btn" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login/Signup Modal -->
+  <div id="auth-modal" class="modal" aria-hidden="true">
+    <div class="modal-overlay"></div>
+    <div class="modal-content glass">
+      <h2 id="auth-modal-title">Login</h2>
+      <form id="auth-form">
+        <div class="input-field">
+          <input type="text" id="auth-username" placeholder=" " required />
+          <label for="auth-username">Username</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="auth-password" placeholder=" " required />
+          <label for="auth-password">Password</label>
+        </div>
+        <div class="input-field">
+          <textarea id="auth-desc" placeholder=" " style="display:none;"></textarea>
+          <label for="auth-desc" style="display:none;">Description</label>
+        </div>
+        <div class="action-btn">
+          <button id="auth-submit-btn" type="submit">Login</button>
+        </div>
+      </form>
+      <div style="text-align:center; margin-top:1em;">
+        <span id="auth-toggle-link" style="cursor:pointer; color:#5b6ee1; text-decoration:underline;">Don't have an account? Sign up</span>
+      </div>
+      <div id="auth-error" style="color:#c00; text-align:center; margin-top:0.7em; display:none;"></div>
+    </div>
+  </div>
+</body>
 </html>
