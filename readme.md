@@ -1,28 +1,83 @@
-## Very Basic ToDo Application
+# Pro To-Do Application
 
-A very basic todo application for complete beginners, who just get familier with node.js and want to build some project or get some project in node.js. No **Database** integrated with this project, We are storing all the data in a **json** file.
+A modern, full-featured To-Do application built with Node.js, Express, and a beautiful HTML/CSS frontend. This project is perfect for beginners and open source contributors who want to learn about full-stack web development without a database—data is stored in JSON files for simplicity.
 
-### Tech Stacks Used
-1. HTML
-2. CSS
-3. Node.js
-4. jQuery
-5. Express.js
+## 🚀 Features
+- User authentication (Sign Up & Login with Name, Email, Password)
+- Session management (shows who is logged in)
+- Add, edit, delete, and toggle completion of to-dos
+- Each user has their own to-do list
+- Responsive, modern UI with floating labels and glassmorphism
+- Search, filter, and sort todos
+- All data stored in JSON files (no database required)
+- Clean code, easy to extend and contribute
 
-### Project Glimpse
-<img width="960" alt="image" src="https://github.com/itzabhinavarya/ToDo-Application/assets/95561280/84629fa3-3290-4283-9925-3246b9d8261a">
+## 🛠️ Tech Stack
+- **Frontend:** HTML, CSS (Poppins font, glassmorphism, responsive design), Vanilla JS
+- **Backend:** Node.js, Express.js, CORS
+- **Other:**
+  - Data storage: JSON files (`users.json`, `todos.json`, `sessions.json`)
+  - Dev tools: nodemon, supertest
 
-### Usecase
-If you are a beginner/fresher and you haven;t developed any project till now then you can add this project in your resume. You can customize this project according to your need and make it your own. Going through code you will learn great concept regarding **CRUD** operation.
+## 📸 Project Glimpse
+![Screenshot](https://github.com/itzabhinavarya/ToDo-Application/assets/95561280/84629fa3-3290-4283-9925-3246b9d8261a)
 
-### Steps to run this project locally
-1. Fork this repo/Download zip. (Make sure to give a star 🌟 to this Repo.)
-2. Open the repo inside your fav. code editor.
-3. Run command (to install dependencies of the project) <br>
-   ```npm install``` <br>
-4. After complete execution of the previous Command then execute this command <br>
-   ```npm start``` <br>
-5. And all set. Head over to **http://localhost:3000**
+## 📦 Getting Started
 
-Follow me on Github for more exciting free projects. <br>
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v14 or higher recommended)
+- npm (comes with Node.js)
+
+### Setup Instructions
+1. **Fork this repo** or **Download ZIP**.
+2. Open the folder in your favorite code editor.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the server:
+   ```bash
+   npm start
+   ```
+5. Open your browser and go to [http://localhost:3000](http://localhost:3000)
+
+## ✨ Usage
+- **Sign Up:** Register with your name, email, and password.
+- **Login:** Use your email and password to log in.
+- **Manage To-Dos:** Add, edit, delete, and mark to-dos as complete/incomplete.
+- **Search/Filter/Sort:** Use the controls to find and organize your tasks.
+- **Session:** The app shows who is logged in in the header.
+
+## 🤝 Contributing
+We welcome contributions! To get started:
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit: `git commit -m 'Add some feature'`
+4. Push to your fork: `git push origin feature/your-feature-name`
+5. Open a Pull Request describing your changes.
+
+**Contribution Guidelines:**
+- Write clean, readable code and add comments where helpful.
+- Update documentation as needed.
+- For major changes, open an issue first to discuss what you’d like to change.
+- Be respectful and constructive in code reviews and discussions.
+
+## 🧑‍💻 Author
+- **Abhinav Kumar Arya** ([itzabhinavarya](https://github.com/itzabhinavarya))
+
+## 📄 License
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+
+## 🔮 Future Scope
+- Add persistent database support (MongoDB, PostgreSQL, etc.)
+- Add user profile and password reset features
+- Add due dates, reminders, and notifications
+- Add drag-and-drop for task reordering
+- Add mobile app (React Native or Flutter)
+- Add dark mode and more themes
+- Add unit and integration tests
+- Add deployment scripts for cloud platforms
+
+## ⭐️ Star this repo if you found it helpful!
+
 Happy coding! 🌟
