@@ -20,7 +20,14 @@ A modern, full-featured To-Do application built with Node.js, Express, and a bea
   - Dev tools: nodemon, supertest
 
 ## 📸 Project Glimpse
-![Screenshot](https://github.com/itzabhinavarya/ToDo-Application/assets/95561280/84629fa3-3290-4283-9925-3246b9d8261a)
+<img width="1907" height="906" alt="image" src="https://github.com/user-attachments/assets/c5f032d9-553b-4f91-97b2-d1180c301b75" />
+<img width="1907" height="906" alt="image" src="https://github.com/user-attachments/assets/7aa8098e-6664-4273-bd54-ae32bd852732" />
+<img width="1907" height="906" alt="image" src="https://github.com/user-attachments/assets/34f74594-7d5c-4c85-85b2-50ef5e60ddb9" />
+<img width="1907" height="906" alt="image" src="https://github.com/user-attachments/assets/1fdc2b48-3263-4a63-9d2e-467ff7a0e3f7" />
+
+
+
+
 
 ## 📦 Getting Started
 
