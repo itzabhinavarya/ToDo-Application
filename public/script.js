@@ -438,6 +438,13 @@ document.addEventListener('DOMContentLoaded', function() {
       closeAuthModal();
     }
   };
+  // Restore user info in header if logged in
+  const token = localStorage.getItem('token');
+  const name = localStorage.getItem('name');
+  const email = localStorage.getItem('email');
+  if (token && name && email) {
+    document.getElementById('user-info').textContent = `${name} (${email})`;
+  }
 });
 
 function closeEditModal() {

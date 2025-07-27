@@ -4,5 +4,11 @@
     "name": "Abhinav Kumar Arya",
     "email": "abhinav@cevious.com",
     "password": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+  },
+  {
+    "id": 2,
+    "name": "akash",
+    "email": "akash@gmail.com",
+    "password": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
   }
 ]

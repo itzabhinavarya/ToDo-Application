@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": 1,
+    "userId": 2,
+    "title": "Welcome to your To-Do List!",
+    "description": "This is your first todo. You can edit or delete it.",
+    "completed": false,
+    "createdAt": "2025-07-27T18:35:38.237Z",
+    "updatedAt": "2025-07-27T18:35:38.238Z"
+  }
+]
