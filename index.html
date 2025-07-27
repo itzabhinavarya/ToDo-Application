@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./styles.css" />
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
   <script src="./script.js"></script>
 </head>
 <body>
@@ -78,17 +79,17 @@
     <div class="modal-content glass">
       <h2 id="auth-modal-title">Login</h2>
       <form id="auth-form">
+        <div class="input-field" id="auth-name-field" style="display:none;">
+          <input type="text" id="auth-name" placeholder=" " />
+          <label for="auth-name">Name</label>
+        </div>
         <div class="input-field">
-          <input type="text" id="auth-username" placeholder=" " required />
-          <label for="auth-username">Username</label>
+          <input type="email" id="auth-email" placeholder=" " required />
+          <label for="auth-email">Email</label>
         </div>
         <div class="input-field">
           <input type="password" id="auth-password" placeholder=" " required />
           <label for="auth-password">Password</label>
-        </div>
-        <div class="input-field">
-          <textarea id="auth-desc" placeholder=" " style="display:none;"></textarea>
-          <label for="auth-desc" style="display:none;">Description</label>
         </div>
         <div class="action-btn">
           <button id="auth-submit-btn" type="submit">Login</button>

@@ -129,18 +129,21 @@ function openEditModal(todo) {
 
 // --- AUTH LOGIC ---
 let authToken = localStorage.getItem('token') || null;
-let currentUsername = localStorage.getItem('username') || null;
+let currentName = localStorage.getItem('name') || null;
+let currentEmail = localStorage.getItem('email') || null;
 
 function showAuthModal(isSignup = false) {
   document.getElementById('auth-modal-title').textContent = isSignup ? 'Sign Up' : 'Login';
   document.getElementById('auth-submit-btn').textContent = isSignup ? 'Sign Up' : 'Login';
   document.getElementById('auth-toggle-link').textContent = isSignup ? 'Already have an account? Login' : "Don't have an account? Sign up";
   document.getElementById('auth-error').style.display = 'none';
-  document.getElementById('auth-username').value = '';
+  document.getElementById('auth-name-field').style.display = isSignup ? '' : 'none';
+  document.getElementById('auth-name').value = '';
+  document.getElementById('auth-email').value = '';
   document.getElementById('auth-password').value = '';
   document.getElementById('auth-modal').setAttribute('aria-hidden', 'false');
   document.getElementById('auth-modal').style.display = 'flex';
-  setTimeout(() => document.getElementById('auth-username').focus(), 100);
+  setTimeout(() => document.getElementById(isSignup ? 'auth-name' : 'auth-email').focus(), 100);
   document.body.classList.add('modal-open');
   window.isSignupMode = isSignup;
 }
@@ -149,14 +152,17 @@ function closeAuthModal() {
   document.getElementById('auth-modal').style.display = 'none';
   document.body.classList.remove('modal-open');
 }
-function setAuth(token, username) {
+function setAuth(token, name, email) {
   authToken = token;
-  currentUsername = username;
+  currentName = name;
+  currentEmail = email;
   localStorage.setItem('token', token);
-  localStorage.setItem('username', username);
+  localStorage.setItem('name', name);
+  localStorage.setItem('email', email);
   document.getElementById('logout-btn').style.display = '';
   document.getElementById('add-todo-btn').style.display = '';
   document.querySelector('.outputData').style.display = '';
+  document.getElementById('user-info').textContent = `${name} (${email})`;
   closeAuthModal();
   fetchAndRenderTodos();
 }
@@ -187,9 +193,12 @@ function hideAuthButtons() {
 }
 function clearAuth() {
   authToken = null;
-  currentUsername = null;
+  currentName = null;
+  currentEmail = null;
   localStorage.removeItem('token');
-  localStorage.removeItem('username');
+  localStorage.removeItem('name');
+  localStorage.removeItem('email');
+  document.getElementById('user-info').textContent = '';
   showAuthButtons();
 }
 function checkAuth() {
@@ -354,18 +363,24 @@ document.addEventListener('DOMContentLoaded', function() {
   };
   document.getElementById('auth-form').onsubmit = function(e) {
     e.preventDefault();
-    const username = document.getElementById('auth-username').value.trim();
+    const isSignup = window.isSignupMode;
+    const name = isSignup ? document.getElementById('auth-name').value.trim() : undefined;
+    const email = document.getElementById('auth-email').value.trim();
     const password = document.getElementById('auth-password').value;
-    if (!username || !password) {
-      document.getElementById('auth-error').textContent = 'Username and password required.';
+    if (isSignup && (!name || !email || !password)) {
+      document.getElementById('auth-error').textContent = 'Name, email, and password required.';
       document.getElementById('auth-error').style.display = 'block';
       return;
     }
-    const isSignup = window.isSignupMode;
+    if (!isSignup && (!email || !password)) {
+      document.getElementById('auth-error').textContent = 'Email and password required.';
+      document.getElementById('auth-error').style.display = 'block';
+      return;
+    }
     fetch(`${API_BASE}/${isSignup ? 'signup' : 'login'}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify(isSignup ? { name, email, password } : { email, password })
     })
       .then(resp => resp.json().then(data => ({ status: resp.status, data })))
       .then(({ status, data }) => {
@@ -375,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('auth-error').textContent = 'Signup successful! Please login.';
             document.getElementById('auth-error').style.display = 'block';
           } else {
-            setAuth(data.token, username);
+            setAuth(data.token, data.name, data.email);
           }
         } else {
           document.getElementById('auth-error').textContent = data.error || 'Authentication failed.';

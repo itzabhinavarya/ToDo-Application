@@ -92,11 +92,11 @@ function validateTodoInput(todo) {
 
 // Signup
 app.post('/signup', (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) return res.status(400).json({ error: 'Username and password required.' });
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) return res.status(400).json({ error: 'Name, email, and password required.' });
   const users = readUsers();
-  if (users.find(u => u.username === username)) return res.status(409).json({ error: 'Username already exists.' });
-  const user = { id: users.length > 0 ? users[users.length-1].id + 1 : 1, username, password: hashPassword(password) };
+  if (users.find(u => u.email === email)) return res.status(409).json({ error: 'Email already exists.' });
+  const user = { id: users.length > 0 ? users[users.length-1].id + 1 : 1, name, email, password: hashPassword(password) };
   users.push(user);
   writeUsers(users);
   // Add default todo for new user
@@ -117,15 +117,15 @@ app.post('/signup', (req, res) => {
 });
 // Login
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   const users = readUsers();
-  const user = users.find(u => u.username === username && u.password === hashPassword(password));
+  const user = users.find(u => u.email === email && u.password === hashPassword(password));
   if (!user) return res.status(401).json({ error: 'Invalid credentials.' });
   const token = generateToken();
   const sessions = readSessions();
   sessions[token] = user.id;
   writeSessions(sessions);
-  res.status(200).json({ token, username });
+  res.status(200).json({ token, name: user.name, email: user.email });
 });
 // Logout
 app.post('/logout', (req, res) => {

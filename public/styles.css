@@ -3,7 +3,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', 'Poppins', Arial, sans-serif;
+  font-family:'Poppins', Arial, sans-serif;
   background: linear-gradient(135deg, #e0e7ff 0%, #f5f7fa 100%);
   min-height: 100vh;
   color: #222;
@@ -273,9 +273,8 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 18px 0 8px 0;
-  margin-bottom: 1.2em;
 }
-.input-field input[type="text"], .input-field input[type="password"], .input-field textarea {
+.input-field input[type="text"], .input-field input[type="password"], .input-field input[type="email"], .input-field textarea {
   background: rgba(255,255,255,0.18);
   border: 1px solid #a1c4fd;
   border-radius: 10px;
@@ -287,22 +286,16 @@ html, body {
   outline: none;
   transition: border 0.2s, box-shadow 0.2s, background 0.2s;
   resize: vertical;
-  min-height: 3.2em;
-  max-height: 8em;
 }
-.input-field input[type="text"]:focus, .input-field input[type="password"]:focus, .input-field textarea:focus {
+.input-field input[type="text"]:focus, .input-field input[type="password"]:focus, .input-field input[type="email"]:focus, .input-field textarea:focus {
   border: 1px solid #5b6ee1;
   background: rgba(255,255,255,0.32);
   box-shadow: 0 4px 16px 0 rgba(91,110,225,0.13);
 }
-.input-field textarea {
-  line-height: 1.4;
-  resize: vertical;
-}
 .input-field label {
   position: absolute;
   left: 1.1em;
-  top: 1.2em;
+  top: 2.1em;
   color: #888;
   font-size: 1em;
   font-weight: 500;
@@ -315,7 +308,9 @@ html, body {
 .input-field input[type="text"]:focus + label,
 .input-field input[type="text"]:not(:placeholder-shown) + label,
 .input-field input[type="password"]:focus + label,
-.input-field input[type="password"]:not(:placeholder-shown) + label {
+.input-field input[type="password"]:not(:placeholder-shown) + label,
+.input-field input[type="email"]:focus + label,
+.input-field input[type="email"]:not(:placeholder-shown) + label {
   top: -0.7em;
   left: 0.9em;
   font-size: 0.88em;
@@ -326,7 +321,8 @@ html, body {
   font-weight: 600;
 }
 .input-field input[type="text"]::placeholder,
-.input-field input[type="password"]::placeholder {
+.input-field input[type="password"]::placeholder,
+.input-field input[type="email"]::placeholder {
   color: transparent;
 }
 .input-field textarea:focus + label,
