@@ -16,6 +16,9 @@ const TODOS_FILE = path.join(__dirname, 'todos.json');
 const USERS_FILE = path.join(__dirname, 'users.json');
 const SESSIONS_FILE = path.join(__dirname, 'sessions.json');
 
+const VALID_PRIORITIES = ['low', 'medium', 'high'];
+const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
+
 function readTodos() {
   try {
     const data = fs.readFileSync(TODOS_FILE, "utf8");
@@ -87,6 +90,7 @@ function validateTodoInput(todo) {
   if (!todo.title || typeof todo.title !== 'string' || todo.title.trim() === '') return false;
   if (!todo.description || typeof todo.description !== 'string') return false;
   if (typeof todo.completed !== 'boolean') return false;
+  if (todo.priority !== undefined && !VALID_PRIORITIES.includes(todo.priority)) return false;
   return true;
 }
 
@@ -99,7 +103,6 @@ app.post('/signup', (req, res) => {
   const user = { id: users.length > 0 ? users[users.length-1].id + 1 : 1, name, email, password: hashPassword(password) };
   users.push(user);
   writeUsers(users);
-  // Add default todo for new user
   const todos = readTodos();
   if (!todos.some(t => t.userId === user.id)) {
     todos.push({
@@ -108,6 +111,7 @@ app.post('/signup', (req, res) => {
       title: 'Welcome to your To-Do List!',
       description: 'This is your first todo. You can edit or delete it.',
       completed: false,
+      priority: 'medium',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     });
@@ -115,6 +119,7 @@ app.post('/signup', (req, res) => {
   }
   res.status(201).json({ message: 'Signup successful.' });
 });
+
 // Login
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
@@ -127,6 +132,7 @@ app.post('/login', (req, res) => {
   writeSessions(sessions);
   res.status(200).json({ token, name: user.name, email: user.email });
 });
+
 // Logout
 app.post('/logout', (req, res) => {
   const auth = req.headers['authorization'];
@@ -137,7 +143,6 @@ app.post('/logout', (req, res) => {
   res.status(200).json({ message: 'Logged out.' });
 });
 
-// Middleware for auth
 function requireAuth(req, res, next) {
   const userId = getUserIdFromToken(req);
   if (!userId) return res.status(401).json({ error: 'Unauthorized' });
@@ -145,23 +150,31 @@ function requireAuth(req, res, next) {
   next();
 }
 
-// GET /todos - Retrieve all todo items, with optional search/filter/sort
+// GET /todos
 app.get('/todos', requireAuth, (req, res) => {
   let todos = readTodos().filter(t => t.userId === req.userId);
-  const { search, filter, sort } = req.query;
+  const { search, filter, sort, priority } = req.query;
   if (search) {
     const s = search.toLowerCase();
     todos = todos.filter(t => t.title.toLowerCase().includes(s) || t.description.toLowerCase().includes(s));
   }
   if (filter === 'completed') todos = todos.filter(t => t.completed);
   if (filter === 'active') todos = todos.filter(t => !t.completed);
+  if (priority && VALID_PRIORITIES.includes(priority)) {
+    todos = todos.filter(t => (t.priority || 'medium') === priority);
+  }
   if (sort === 'title') todos = todos.sort((a, b) => a.title.localeCompare(b.title));
-  if (sort === 'createdAt') todos = todos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  if (sort === 'updatedAt') todos = todos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  else if (sort === 'createdAt') todos = todos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  else if (sort === 'updatedAt') todos = todos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  else if (sort === 'priority') {
+    todos = todos.sort((a, b) =>
+      (PRIORITY_ORDER[a.priority || 'medium'] - PRIORITY_ORDER[b.priority || 'medium'])
+    );
+  }
   res.status(200).json(todos);
 });
 
-// GET /todos/:id - Retrieve a specific todo item by ID
+// GET /todos/:id
 app.get('/todos/:id', requireAuth, (req, res) => {
   const todoID = parseInt(req.params.id);
   const todos = readTodos();
@@ -173,16 +186,20 @@ app.get('/todos/:id', requireAuth, (req, res) => {
   }
 });
 
-// POST /todos - Create a new todo item
+// POST /todos
 app.post('/todos', requireAuth, (req, res) => {
   const todos = readTodos();
-  const { title, description, completed } = req.body;
+  const { title, description, completed, priority } = req.body;
+  if (priority !== undefined && !VALID_PRIORITIES.includes(priority)) {
+    return res.status(400).json({ error: 'Invalid priority. Must be low, medium, or high.' });
+  }
   const newTodo = {
     id: todos.length > 0 ? todos[todos.length - 1].id + 1 : 1,
     userId: req.userId,
     title,
     description,
     completed: !!completed,
+    priority: VALID_PRIORITIES.includes(priority) ? priority : 'medium',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -194,17 +211,21 @@ app.post('/todos', requireAuth, (req, res) => {
   res.status(201).json(newTodo);
 });
 
-// PUT /todos/:id - Update an existing todo item by ID
+// PUT /todos/:id
 app.put('/todos/:id', requireAuth, (req, res) => {
   const todos = readTodos();
   const todoIndex = todos.findIndex((data) => data.id == req.params.id && data.userId === req.userId);
   if (todoIndex !== -1) {
-    const { title, description, completed } = req.body;
+    const { title, description, completed, priority } = req.body;
+    if (priority !== undefined && !VALID_PRIORITIES.includes(priority)) {
+      return res.status(400).json({ error: 'Invalid priority. Must be low, medium, or high.' });
+    }
     const updatedTodo = {
       ...todos[todoIndex],
       title,
       description,
       completed: !!completed,
+      priority: VALID_PRIORITIES.includes(priority) ? priority : (todos[todoIndex].priority || 'medium'),
       updatedAt: new Date().toISOString(),
     };
     if (!validateTodoInput(updatedTodo)) {
@@ -218,7 +239,7 @@ app.put('/todos/:id', requireAuth, (req, res) => {
   }
 });
 
-// PATCH /todos/:id/toggle - Toggle completion status
+// PATCH /todos/:id/toggle
 app.patch('/todos/:id/toggle', requireAuth, (req, res) => {
   const todos = readTodos();
   const todoIndex = todos.findIndex((data) => data.id == req.params.id && data.userId === req.userId);
@@ -232,7 +253,22 @@ app.patch('/todos/:id/toggle', requireAuth, (req, res) => {
   }
 });
 
-// DELETE /todos/:id - Delete a todo item by ID
+// PATCH /todos/:id/priority  — quick priority update without a full PUT
+app.patch('/todos/:id/priority', requireAuth, (req, res) => {
+  const { priority } = req.body;
+  if (!VALID_PRIORITIES.includes(priority)) {
+    return res.status(400).json({ error: 'Invalid priority. Must be low, medium, or high.' });
+  }
+  const todos = readTodos();
+  const todoIndex = todos.findIndex((t) => t.id == req.params.id && t.userId === req.userId);
+  if (todoIndex === -1) return res.status(404).json({ error: 'Record not found.' });
+  todos[todoIndex].priority = priority;
+  todos[todoIndex].updatedAt = new Date().toISOString();
+  if (!writeTodos(todos, res)) return;
+  res.status(200).json(todos[todoIndex]);
+});
+
+// DELETE /todos/:id
 app.delete('/todos/:id', requireAuth, (req, res) => {
   const todos = readTodos();
   const index = todos.findIndex((x) => x.id == req.params.id && x.userId === req.userId);
