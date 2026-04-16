@@ -9,6 +9,13 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
   <script src="./script.js"></script>
+  <style>
+    .priority-badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:0.75em; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:4px; }
+    .priority-badge.high   { background:#ffe0e0; color:#c0392b; }
+    .priority-badge.medium { background:#fff3cd; color:#b8860b; }
+    .priority-badge.low    { background:#e8f5e9; color:#2e7d32; }
+    .priority-select { padding:6px 10px; border-radius:8px; border:1px solid #ccc; font-size:0.95em; margin-top:4px; width:100%; }
+  </style>
 </head>
 <body>
   <header class="app-header">
@@ -30,11 +37,15 @@
         <option value="all">All</option>
         <option value="active">Active</option>
         <option value="completed">Completed</option>
+        <option value="priority-high">Priority: High</option>
+        <option value="priority-medium">Priority: Medium</option>
+        <option value="priority-low">Priority: Low</option>
       </select>
       <select id="sort-select">
         <option value="createdAt">Sort by Created</option>
         <option value="updatedAt">Sort by Updated</option>
         <option value="title">Sort by Title</option>
+        <option value="priority">Sort by Priority</option>
       </select>
       <button id="clear-filters-btn" class="icon-btn" title="Clear Filters"><span class="material-icons">filter_alt_off</span></button>
     </section>
@@ -58,6 +69,14 @@
         <div class="input-field">
           <textarea id="edit-desc" placeholder=" " required rows="3"></textarea>
           <label for="edit-desc">Description</label>
+        </div>
+        <div class="input-field">
+          <label for="edit-priority">Priority</label>
+          <select id="edit-priority" class="priority-select">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
         </div>
         <div class="input-field" id="completed-checkbox-field" style="display:none;">
           <label for="edit-completed">Completed</label>
